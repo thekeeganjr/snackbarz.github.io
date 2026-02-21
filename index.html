@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Narrow Jumbotron Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../css/editor.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="narrow-jumbotron.css" rel="stylesheet">
+  </head>
+
+  <body>
+  <div id="app" class="h-full w-full overflow-auto">
+   <!-- Login Selection Page -->
+   <div id="login-selection" class="min-h-full flex items-center justify-center p-6">
+    <div class="text-center max-w-md w-full">
+     <div class="bounce-in">
+      <img src="https://raw.githubusercontent.com/thekeeganjr/snackbarz/11e5007d23c4aaca49eaee2fd05f8063fbcec08f/logo.png" alt="SnackBarz" class="w-32 h-32 mx-auto mb-6 rounded-full card-shadow object-cover" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #FF6B35, #F7931E)'; this.alt='SnackBarz'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center';" style="background: linear-gradient(135deg, rgb(255, 107, 53), rgb(247, 147, 30)); display: flex; align-items: center; justify-content: center;">
+      <h1 id="brand-title" class="brand-font text-5xl font-bold text-transparent bg-clip-text snack-gradient bg-gradient-to-r from-orange-500 to-yellow-500 mb-2">SnackBarz</h1>
+      <p id="brand-tagline" class="text-gray-600 mb-10">Snack Enak, Harga Asyik! 🍟</p>
+     </div>
+     <div class="space-y-4 slide-up">
+      <button onclick="showBuyerLogin()" class="w-full snack-gradient text-white font-semibold py-4 px-8 rounded-2xl card-shadow hover:opacity-90 transition-all duration-300 flex items-center justify-center gap-3"> <span class="text-2xl">🛒</span> <span>Masuk sebagai Pembeli</span> </button> <button onclick="showSellerLogin()" class="w-full bg-white text-orange-600 font-semibold py-4 px-8 rounded-2xl card-shadow border-2 border-orange-200 hover:border-orange-400 transition-all duration-300 flex items-center justify-center gap-3"> <span class="text-2xl">👨‍🍳</span> <span>Masuk sebagai Penjual</span> </button>
+     </div>
+    </div>
+   </div><!-- Buyer Login Page -->
+   <div id="buyer-login" class="min-h-full flex items-center justify-center p-6 hidden">
+    <div class="bg-white rounded-3xl card-shadow p-8 max-w-md w-full bounce-in">
+     <button onclick="showLoginSelection()" class="text-gray-400 hover:text-gray-600 mb-4">← Kembali</button>
+     <div class="text-center mb-8">
+      <span class="text-6xl mb-4 block">🛒</span>
+      <h2 class="brand-font text-3xl font-bold text-gray-800">Halo, Pembeli!</h2>
+      <p class="text-gray-500 mt-2">Masukkan nama kamu untuk mulai pesan</p>
+     </div>
+     <form id="buyer-form" onsubmit="handleBuyerLogin(event)">
+      <div class="mb-6">
+       <label class="block text-gray-700 font-medium mb-2">Nama Kamu</label> <input type="text" id="buyer-name" required="" placeholder="Contoh: Budi" class="w-full px-5 py-4 rounded-xl border-2 border-orange-100 focus:border-orange-400 focus:outline-none transition-colors text-lg">
+      </div><button type="submit" class="w-full snack-gradient text-white font-semibold py-4 rounded-xl hover:opacity-90 transition-opacity"> Mulai Pesan 🍟 </button>
+     </form>
+    </div>
+   </div><!-- Seller Login Page -->
+   <div id="seller-login" class="min-h-full flex items-center justify-center p-6 hidden">
+    <div class="bg-white rounded-3xl card-shadow p-8 max-w-md w-full bounce-in">
+     <button onclick="showLoginSelection()" class="text-gray-400 hover:text-gray-600 mb-4">← Kembali</button>
+     <div class="text-center mb-8">
+      <span class="text-6xl mb-4 block">👨‍🍳</span>
+      <h2 class="brand-font text-3xl font-bold text-gray-800">Portal Penjual</h2>
+      <p class="text-gray-500 mt-2">Masuk untuk mengelola pesanan</p>
+     </div>
+     <form id="seller-form" onsubmit="handleSellerLogin(event)">
+      <div class="mb-4">
+       <label class="block text-gray-700 font-medium mb-2">Username</label> <input type="text" id="seller-username" required="" placeholder="Username" class="w-full px-5 py-4 rounded-xl border-2 border-orange-100 focus:border-orange-400 focus:outline-none transition-colors">
+      </div>
+      <div class="mb-6">
+       <label class="block text-gray-700 font-medium mb-2">Password</label> <input type="password" id="seller-password" required="" placeholder="Password" class="w-full px-5 py-4 rounded-xl border-2 border-orange-100 focus:border-orange-400 focus:outline-none transition-colors">
+      </div>
+      <div id="seller-error" class="hidden text-red-500 text-center mb-4 p-3 bg-red-50 rounded-xl">
+       Username atau password salah!
+      </div><button type="submit" class="w-full snack-gradient text-white font-semibold py-4 rounded-xl hover:opacity-90 transition-opacity"> Masuk Dashboard 📊 </button>
+     </form>
+    </div>
+   </div><!-- Buyer Order Page -->
+   <div id="buyer-order" class="min-h-full p-6 hidden">
+    <div class="max-w-2xl mx-auto">
+     <div class="bg-white rounded-3xl card-shadow p-6 mb-6 slide-up">
+      <div class="flex items-center justify-between mb-4">
+       <div>
+        <h2 class="brand-font text-2xl font-bold text-gray-800">Hai, <span id="customer-greeting"></span>! 👋</h2>
+        <p class="text-gray-500">Yuk pilih snack favoritmu!</p>
+       </div><button onclick="logoutBuyer()" class="text-gray-400 hover:text-red-500 transition-colors"> Keluar </button>
+      </div>
+     </div><!-- Snack Display -->
+     <div class="bg-white rounded-3xl card-shadow p-6 mb-6 slide-up">
+      <div class="text-center">
+       <img src="https://raw.githubusercontent.com/thekeeganjr/snackbarz/main/2.webp" alt="SnackBarz Special" class="w-full max-w-xs mx-auto rounded-2xl mb-4" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #FF6B35, #F7931E)'; this.style.height='200px'; this.alt='Snack Image';">
+       <h3 class="brand-font text-2xl font-bold text-gray-800">SnackBarz Special 🌟</h3>
+       <p class="text-gray-500">Snack box spesial dengan topping &amp; saus pilihanmu!</p>
+      </div>
+     </div><!-- Toppings Selection -->
+     <div class="bg-white rounded-3xl card-shadow p-6 mb-6 slide-up">
+      <h3 class="brand-font text-xl font-bold text-gray-800 mb-4 flex items-center gap-2"><span>🥗</span> Pilih Topping</h3>
+      <div class="grid grid-cols-2 gap-3">
+       <label class="topping-item flex items-center gap-3 p-4 rounded-xl border-2 border-gray-100 hover:border-orange-300 cursor-pointer transition-all"> <input type="checkbox" name="topping" value="sosis" class="w-5 h-5 accent-orange-500"> <span class="text-2xl">🌭</span> <span class="font-medium">Sosis</span> </label> <label class="topping-item flex items-center gap-3 p-4 rounded-xl border-2 border-gray-100 hover:border-orange-300 cursor-pointer transition-all"> <input type="checkbox" name="topping" value="nugget" class="w-5 h-5 accent-orange-500"> <span class="text-2xl">🍗</span> <span class="font-medium">Nugget</span> </label> <label class="topping-item flex items-center gap-3 p-4 rounded-xl border-2 border-gray-100 hover:border-orange-300 cursor-pointer transition-all"> <input type="checkbox" name="topping" value="selada" class="w-5 h-5 accent-orange-500"> <span class="text-2xl">🥬</span> <span class="font-medium">Selada</span> </label> <label class="topping-item flex items-center gap-3 p-4 rounded-xl border-2 border-gray-100 hover:border-orange-300 cursor-pointer transition-all"> <input type="checkbox" name="topping" value="tomat" class="w-5 h-5 accent-orange-500"> <span class="text-2xl">🍅</span> <span class="font-medium">Tomat</span> </label> <label class="topping-item flex items-center gap-3 p-4 rounded-xl border-2 border-gray-100 hover:border-orange-300 cursor-pointer transition-all"> <input type="checkbox" name="topping" value="timun" class="w-5 h-5 accent-orange-500"> <span class="text-2xl">🥒</span> <span class="font-medium">Timun</span> </label> <label class="topping-item flex items-center gap-3 p-4 rounded-xl border-2 border-gray-100 hover:border-orange-300 cursor-pointer transition-all"> <input type="checkbox" name="topping" value="jagung" class="w-5 h-5 accent-orange-500"> <span class="text-2xl">🌽</span> <span class="font-medium">Jagung</span> </label>
+      </div>
+     </div><!-- Sauce Selection -->
+     <div class="bg-white rounded-3xl card-shadow p-6 mb-6 slide-up">
+      <h3 class="brand-font text-xl font-bold text-gray-800 mb-4 flex items-center gap-2"><span>🥫</span> Pilih Saus</h3>
+      <div class="grid grid-cols-2 gap-3">
+       <label class="sauce-item flex items-center gap-3 p-4 rounded-xl border-2 border-gray-100 hover:border-orange-300 cursor-pointer transition-all"> <input type="checkbox" name="sauce" value="tomat" class="w-5 h-5 accent-orange-500"> <span class="text-2xl">🍅</span> <span class="font-medium">Saus Tomat</span> </label> <label class="sauce-item flex items-center gap-3 p-4 rounded-xl border-2 border-gray-100 hover:border-orange-300 cursor-pointer transition-all"> <input type="checkbox" name="sauce" value="mayo" class="w-5 h-5 accent-orange-500"> <span class="text-2xl">🥛</span> <span class="font-medium">Mayonnaise</span> </label> <label class="sauce-item flex items-center gap-3 p-4 rounded-xl border-2 border-gray-100 hover:border-orange-300 cursor-pointer transition-all"> <input type="checkbox" name="sauce" value="sambal" class="w-5 h-5 accent-orange-500"> <span class="text-2xl">🌶️</span> <span class="font-medium">Sambal</span> </label> <label class="sauce-item flex items-center gap-3 p-4 rounded-xl border-2 border-gray-100 hover:border-orange-300 cursor-pointer transition-all"> <input type="checkbox" name="sauce" value="tartar" class="w-5 h-5 accent-orange-500"> <span class="text-2xl">🧄</span> <span class="font-medium">Tartar</span> </label> <label class="sauce-item flex items-center gap-3 p-4 rounded-xl border-2 border-gray-100 hover:border-orange-300 cursor-pointer transition-all col-span-2"> <input type="checkbox" name="sauce" value="bolognese" class="w-5 h-5 accent-orange-500"> <span class="text-2xl">🍝</span> <span class="font-medium">Bolognese</span> </label>
+      </div>
+     </div><!-- Order Button --> <button id="submit-order-btn" onclick="submitOrder()" class="w-full snack-gradient text-white font-bold py-5 rounded-2xl card-shadow hover:opacity-90 transition-all text-lg flex items-center justify-center gap-2 slide-up"> <span>Pesan Sekarang</span> <span class="text-2xl">🛒</span> </button>
+    </div>
+   </div><!-- Buyer Waiting Page -->
+   <div id="buyer-waiting" class="min-h-full flex items-center justify-center p-6 hidden">
+    <div class="text-center max-w-md w-full">
+     <div class="bg-white rounded-3xl card-shadow p-8 bounce-in">
+      <div id="waiting-icon" class="text-8xl mb-6 pulse-glow inline-block rounded-full p-4">
+       ⏳
+      </div>
+      <h2 id="waiting-title" class="brand-font text-3xl font-bold text-gray-800 mb-2">Pesanan Diproses</h2>
+      <p id="waiting-message" class="text-gray-500 mb-6">Mohon tunggu, pesananmu sedang disiapkan...</p>
+      <div id="order-summary" class="text-left bg-orange-50 rounded-2xl p-5 mb-6">
+       <h4 class="font-bold text-gray-700 mb-3">Detail Pesanan:</h4>
+       <div id="summary-toppings" class="text-gray-600 mb-2"></div>
+       <div id="summary-sauces" class="text-gray-600"></div>
+      </div>
+      <div id="waiting-status" class="inline-flex items-center gap-2 bg-yellow-100 text-yellow-700 px-6 py-3 rounded-full font-medium">
+       <span class="animate-pulse">●</span> <span>Sedang Diproses</span>
+      </div>
+     </div>
+    </div>
+   </div><!-- Seller Dashboard -->
+   <div id="seller-dashboard" class="min-h-full p-6 hidden">
+    <div class="max-w-4xl mx-auto">
+     <div class="bg-white rounded-3xl card-shadow p-6 mb-6 slide-up">
+      <div class="flex items-center justify-between">
+       <div class="flex items-center gap-4"><img src="https://raw.githubusercontent.com/thekeeganjr/snackbarz/11e5007d23c4aaca49eaee2fd05f8063fbcec08f/logo.png" alt="SnackBarz" class="w-16 h-16 rounded-full object-cover" loading="lazy" onerror="this.style.background='linear-gradient(135deg, #FF6B35, #F7931E)'; this.alt='SnackBarz';" style="background: linear-gradient(135deg, rgb(255, 107, 53), rgb(247, 147, 30));">
+        <div>
+         <h2 class="brand-font text-2xl font-bold text-gray-800">Dashboard Penjual 📊</h2>
+         <p class="text-gray-500">Kelola pesanan masuk</p>
+        </div>
+       </div><button onclick="logoutSeller()" class="bg-red-50 text-red-500 px-5 py-2 rounded-xl hover:bg-red-100 transition-colors font-medium"> Keluar </button>
+      </div>
+     </div><!-- Stats -->
+     <div class="grid grid-cols-2 gap-4 mb-6">
+      <div class="bg-green-50 rounded-2xl p-5 slide-up">
+       <div class="text-3xl mb-2">
+        📥
+       </div>
+       <div id="pending-count" class="brand-font text-3xl font-bold text-green-600">
+        0
+       </div>
+       <div class="text-green-600 font-medium">
+        Pesanan Baru
+       </div>
+      </div>
+      <div class="bg-red-50 rounded-2xl p-5 slide-up">
+       <div class="text-3xl mb-2">
+        ✅
+       </div>
+       <div id="completed-count" class="brand-font text-3xl font-bold text-red-500">
+        0
+       </div>
+       <div class="text-red-500 font-medium">
+        Selesai
+       </div>
+      </div>
+     </div><!-- Orders List -->
+     <div class="bg-white rounded-3xl card-shadow p-6 slide-up">
+      <h3 class="brand-font text-xl font-bold text-gray-800 mb-4">History Pesanan</h3>
+      <div id="orders-list" class="space-y-4">
+       <div class="text-center text-gray-400 py-10">
+        <span class="text-5xl mb-4 block">📭</span>
+        <p>Belum ada pesanan</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+    // State Management
+    let currentCustomerName = '';
+    let currentOrderId = null;
+    let allOrders = [];
+    let isProcessing = false;
+
+    // Default Config
+    const defaultConfig = {
+      brand_name: 'SnackBarz',
+      tagline: 'Snack Enak, Harga Asyik!',
+      primary_color: '#FF6B35',
+      secondary_color: '#F7931E',
+      accent_color: '#FFD700',
+      text_color: '#374151',
+      background_color: '#FFF7ED'
+    };
+
+    // Data Handler
+    const dataHandler = {
+      onDataChanged(data) {
+        allOrders = data;
+        updateSellerDashboard();
+        checkBuyerOrderStatus();
+      }
+    };
+
+    // Initialize SDKs
+    async function initApp() {
+      // Initialize Element SDK
+      if (window.elementSdk) {
+        window.elementSdk.init({
+          defaultConfig,
+          onConfigChange: async (config) => {
+            document.getElementById('brand-title').textContent = config.brand_name || defaultConfig.brand_name;
+            document.getElementById('brand-tagline').textContent = (config.tagline || defaultConfig.tagline) + ' 🍟';
+          },
+          mapToCapabilities: (config) => ({
+            recolorables: [
+              {
+                get: () => config.primary_color || defaultConfig.primary_color,
+                set: (value) => window.elementSdk.setConfig({ primary_color: value })
+              }
+            ],
+            borderables: [],
+            fontEditable: undefined,
+            fontSizeable: undefined
+          }),
+          mapToEditPanelValues: (config) => new Map([
+            ['brand_name', config.brand_name || defaultConfig.brand_name],
+            ['tagline', config.tagline || defaultConfig.tagline]
+          ])
+        });
+      }
+
+      // Initialize Data SDK
+      if (window.dataSdk) {
+        const result = await window.dataSdk.init(dataHandler);
+        if (!result.isOk) {
+          console.error('Failed to initialize Data SDK');
+        }
+      }
+    }
+
+    initApp();
+
+    // Navigation Functions
+    function showLoginSelection() {
+      hideAllPages();
+      document.getElementById('login-selection').classList.remove('hidden');
+    }
+
+    function showBuyerLogin() {
+      hideAllPages();
+      document.getElementById('buyer-login').classList.remove('hidden');
+    }
+
+    function showSellerLogin() {
+      hideAllPages();
+      document.getElementById('seller-login').classList.remove('hidden');
+    }
+
+    function hideAllPages() {
+      document.getElementById('login-selection').classList.add('hidden');
+      document.getElementById('buyer-login').classList.add('hidden');
+      document.getElementById('seller-login').classList.add('hidden');
+      document.getElementById('buyer-order').classList.add('hidden');
+      document.getElementById('buyer-waiting').classList.add('hidden');
+      document.getElementById('seller-dashboard').classList.add('hidden');
+    }
+
+    // Buyer Functions
+    function handleBuyerLogin(event) {
+      event.preventDefault();
+      const nameInput = document.getElementById('buyer-name');
+      currentCustomerName = nameInput.value.trim();
+      
+      if (currentCustomerName) {
+        document.getElementById('customer-greeting').textContent = currentCustomerName;
+        hideAllPages();
+        document.getElementById('buyer-order').classList.remove('hidden');
+        nameInput.value = '';
+      }
+    }
+
+    async function submitOrder() {
+      if (isProcessing) return;
+      
+      const toppings = Array.from(document.querySelectorAll('input[name="topping"]:checked')).map(cb => cb.value);
+      const sauces = Array.from(document.querySelectorAll('input[name="sauce"]:checked')).map(cb => cb.value);
+      
+      if (toppings.length === 0 && sauces.length === 0) {
+        showInlineMessage('Pilih minimal satu topping atau saus!');
+        return;
+      }
+
+      // Check limit
+      if (allOrders.length >= 999) {
+        showInlineMessage('Pesanan sudah mencapai batas maksimal!');
+        return;
+      }
+
+      isProcessing = true;
+      const btn = document.getElementById('submit-order-btn');
+      btn.innerHTML = '<span class="animate-spin">⏳</span> Memproses...';
+      btn.disabled = true;
+
+      const orderId = 'ORD-' + Date.now();
+      currentOrderId = orderId;
+
+      const orderData = {
+        order_id: orderId,
+        customer_name: currentCustomerName,
+        toppings: toppings.join(', '),
+        sauces: sauces.join(', '),
+        status: 'pending',
+        created_at: new Date().toISOString()
+      };
+
+      if (window.dataSdk) {
+        const result = await window.dataSdk.create(orderData);
+        if (result.isOk) {
+          showWaitingPage(toppings, sauces);
+        } else {
+          showInlineMessage('Gagal membuat pesanan. Coba lagi!');
+        }
+      }
+
+      btn.innerHTML = '<span>Pesan Sekarang</span><span class="text-2xl">🛒</span>';
+      btn.disabled = false;
+      isProcessing = false;
+    }
+
+    function showInlineMessage(message) {
+      const existingMsg = document.getElementById('inline-message');
+      if (existingMsg) existingMsg.remove();
+
+      const msgDiv = document.createElement('div');
+      msgDiv.id = 'inline-message';
+      msgDiv.className = 'fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded-xl shadow-lg z-50 bounce-in';
+      msgDiv.textContent = message;
+      document.body.appendChild(msgDiv);
+
+      setTimeout(() => msgDiv.remove(), 3000);
+    }
+
+    function showWaitingPage(toppings, sauces) {
+      hideAllPages();
+      document.getElementById('buyer-waiting').classList.remove('hidden');
+
+      const toppingEmojis = {
+        sosis: '🌭 Sosis',
+        nugget: '🍗 Nugget',
+        selada: '🥬 Selada',
+        tomat: '🍅 Tomat',
+        timun: '🥒 Timun',
+        jagung: '🌽 Jagung'
+      };
+
+      const sauceEmojis = {
+        tomat: '🍅 Saus Tomat',
+        mayo: '🥛 Mayonnaise',
+        sambal: '🌶️ Sambal',
+        tartar: '🧄 Tartar',
+        bolognese: '🍝 Bolognese'
+      };
+
+      const toppingText = toppings.length > 0 
+        ? '🥗 Topping: ' + toppings.map(t => toppingEmojis[t] || t).join(', ')
+        : '🥗 Topping: Tidak ada';
+      
+      const sauceText = sauces.length > 0 
+        ? '🥫 Saus: ' + sauces.map(s => sauceEmojis[s] || s).join(', ')
+        : '🥫 Saus: Tidak ada';
+
+      document.getElementById('summary-toppings').textContent = toppingText;
+      document.getElementById('summary-sauces').textContent = sauceText;
+
+      // Reset checkboxes
+      document.querySelectorAll('input[name="topping"], input[name="sauce"]').forEach(cb => cb.checked = false);
+    }
+
+    function checkBuyerOrderStatus() {
+      if (!currentOrderId) return;
+
+      const order = allOrders.find(o => o.order_id === currentOrderId);
+      
+      if (order && order.status === 'completed') {
+        // Show completed status
+        document.getElementById('waiting-icon').textContent = '✅';
+        document.getElementById('waiting-icon').classList.remove('pulse-glow');
+        document.getElementById('waiting-title').textContent = 'Pesanan Selesai!';
+        document.getElementById('waiting-message').textContent = 'Silahkan ambil pesananmu. Terima kasih! 🎉';
+        document.getElementById('waiting-status').className = 'inline-flex items-center gap-2 bg-green-100 text-green-700 px-6 py-3 rounded-full font-medium';
+        document.getElementById('waiting-status').innerHTML = '<span>✓</span><span>Selesai</span>';
+
+        // Redirect to login after 3 seconds
+        setTimeout(() => {
+          currentOrderId = null;
+          currentCustomerName = '';
+          showLoginSelection();
+        }, 3000);
+      }
+    }
+
+    function logoutBuyer() {
+      currentCustomerName = '';
+      currentOrderId = null;
+      showLoginSelection();
+    }
+
+    // Seller Functions
+    function handleSellerLogin(event) {
+      event.preventDefault();
+      const username = document.getElementById('seller-username').value;
+      const password = document.getElementById('seller-password').value;
+
+      if (username === 'admin' && password === 'snackbarz') {
+        document.getElementById('seller-error').classList.add('hidden');
+        document.getElementById('seller-username').value = '';
+        document.getElementById('seller-password').value = '';
+        hideAllPages();
+        document.getElementById('seller-dashboard').classList.remove('hidden');
+        updateSellerDashboard();
+      } else {
+        document.getElementById('seller-error').classList.remove('hidden');
+      }
+    }
+
+    function updateSellerDashboard() {
+      const ordersList = document.getElementById('orders-list');
+      const pendingCount = allOrders.filter(o => o.status === 'pending').length;
+      const completedCount = allOrders.filter(o => o.status === 'completed').length;
+
+      document.getElementById('pending-count').textContent = pendingCount;
+      document.getElementById('completed-count').textContent = completedCount;
+
+      if (allOrders.length === 0) {
+        ordersList.innerHTML = `
+          <div class="text-center text-gray-400 py-10">
+            <span class="text-5xl mb-4 block">📭</span>
+            <p>Belum ada pesanan</p>
+          </div>
+        `;
+        return;
+      }
+
+      // Sort: pending first, then by date
+      const sortedOrders = [...allOrders].sort((a, b) => {
+        if (a.status === 'pending' && b.status !== 'pending') return -1;
+        if (a.status !== 'pending' && b.status === 'pending') return 1;
+        return new Date(b.created_at) - new Date(a.created_at);
+      });
+
+      ordersList.innerHTML = sortedOrders.map(order => {
+        const isPending = order.status === 'pending';
+        const bgColor = isPending ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200';
+        const statusColor = isPending ? 'text-green-600' : 'text-red-500';
+        const statusText = isPending ? '🟢 Menunggu' : '🔴 Selesai';
+        
+        const createdAt = new Date(order.created_at);
+        const timeStr = createdAt.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+        return `
+          <div class="order-card ${bgColor} border-2 rounded-2xl p-5" data-order-id="${order.order_id}">
+            <div class="flex items-start justify-between mb-3">
+              <div>
+                <h4 class="font-bold text-gray-800 text-lg">${order.customer_name}</h4>
+                <p class="text-sm text-gray-500">${order.order_id} • ${timeStr}</p>
+              </div>
+              <span class="${statusColor} font-medium text-sm">${statusText}</span>
+            </div>
+            <div class="bg-white rounded-xl p-3 mb-3">
+              <p class="text-gray-600 text-sm mb-1">🥗 <strong>Topping:</strong> ${order.toppings || 'Tidak ada'}</p>
+              <p class="text-gray-600 text-sm">🥫 <strong>Saus:</strong> ${order.sauces || 'Tidak ada'}</p>
+            </div>
+            ${isPending ? `
+              <button onclick="completeOrder('${order.__backendId}')" class="w-full snack-gradient text-white font-semibold py-3 rounded-xl hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+                <span>Selesaikan Pesanan</span>
+                <span>✅</span>
+              </button>
+            ` : `
+              <div class="text-center text-red-400 font-medium py-2">
+                Pesanan telah diselesaikan
+              </div>
+            `}
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function completeOrder(backendId) {
+      const order = allOrders.find(o => o.__backendId === backendId);
+      if (!order || isProcessing) return;
+
+      isProcessing = true;
+      const updatedOrder = { ...order, status: 'completed' };
+
+      if (window.dataSdk) {
+        const result = await window.dataSdk.update(updatedOrder);
+        if (!result.isOk) {
+          showInlineMessage('Gagal menyelesaikan pesanan!');
+        }
+      }
+      isProcessing = false;
+    }
+
+    function logoutSeller() {
+      showLoginSelection();
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d14ecc667b78740',t:'MTc3MTY2MzA3OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
